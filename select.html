@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React!</title>
+    <script src="https://cdn.bootcss.com/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.bootcss.com/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+
+    </div>
+    <div>
+        <select>
+            <option value="1">s</option>
+        </select>
+    </div>
+    <script type="text/babel">
+        class SComponent extends React.Component{
+            constructor(props){
+                super(props);
+            }
+            render() {
+                var list = this.props.list.map((item,index)=>{
+                    return <option key={index}>{item}</option>
+                });
+                console.log(list);
+                return (
+                    <select>
+                        {list}
+                    </select>
+                );
+
+            }
+        }
+        var list = ["1234","234","213","234"];
+        ReactDOM.render(
+            <SComponent list={list} ></SComponent>
+            ,
+            document.getElementById("app")
+
+        )
+
+    </script>
+</body>
