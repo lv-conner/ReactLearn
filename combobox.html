@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React!</title>
+    <script src="https://cdn.bootcss.com/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.bootcss.com/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root">
+
+    </div>
+    <script type="text/babel">
+        function MyOptions(props){
+            return props.list.map((item,index)=>{
+                return <option key={index}>{item}</option>
+            });
+        }
+        class MyCombobox extends React.Component{
+            constructor(props){
+                super(props);
+                this.state = {list:[]};
+            };
+            componentDidMount(){
+                setTimeout(()=> this.setCombobox(), 2000);
+            };
+            setCombobox(){
+                var req = new XMLHttpRequest();
+                var that = this;
+                req.onreadystatechange = ()=>{
+                    if(req.status ==200 & req.readyState ==4){
+                        console.log(req.responseText);
+                        var data = JSON.parse(req.responseText);
+                        //debugger;
+                        that.setState({list:data},()=>{console.log("get list success!")});
+                    };
+                }
+                req.open("get","http://127.0.0.1:13130");
+                req.send(null);
+            };
+            render(){
+                return(
+                    <select>
+                        {this.state.list.map((item,index)=>{
+                        return <option key={index}>{item}</option>
+                        })}
+                    </select>
+                )
+            }
+        }
+        ReactDOM.render(<MyCombobox/>,document.getElementById("root"))
+    </script>
+</body>
+
+</html>

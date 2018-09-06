@@ -16,29 +16,36 @@
 
 
 
-    class Clock extends React.Component{
+        class Clock extends React.Component{
         constructor(props){
+            console.log("Click component constructor");
             super(props);
             this.state = {date:new Date()}
         }
         componentDidMount = ()=>{
+            console.log("component mount");
             this.timerID = setInterval(
                 () => this.tick(),
                 1000
             );
+            this.Name = "tim";
         };
         componentWillUnmount = () => {
+          console.log("component unmount");
           clearInterval(this.timerID);
         };
         
         tick(){
-            this.setState({date:new Date()});
+            console.log("update state");
+            this.setState({date:new Date()},()=>console.log("update date complete"));
+            //this.Name += new Date();
         };
         
         render(){
+            console.log("render");
             return(
                 <div>
-                    <h1>Hello, world!</h1>
+                    <h1>Hello, world!{this.Name}</h1>
                     <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
                 </div>
             )
