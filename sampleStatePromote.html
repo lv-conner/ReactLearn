@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React!</title>
+    <script src="https://cdn.bootcss.com/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.bootcss.com/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root">
+
+    </div>
+    <script type="text/babel">
+        class Children extends React.Component{
+            constructor(props){
+                super(props);
+                this.onChange = this.onChange.bind(this);
+            }
+            onChange(e){
+                this.props.onChange(e.target.value);
+            }
+            render(){
+                console.log(this);
+                return (
+                    <input type="date" value={this.props.date} onChange={this.onChange}/>
+                )
+            }
+        }
+        class Parent extends React.Component{
+            constructor(props){
+                super(props);
+                this.state = {date:new Date()};
+                this.onChange = this.onChange.bind(this);
+            }
+            onChange(value){
+                this.setState({date:value});
+            }
+            render(){
+                return(
+                    <div>
+                        <Children date={this.state.date} onChange={this.onChange}/>
+                        <Children date={this.state.date} onChange={this.onChange}/>
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(<Parent/>,document.getElementById("root"))
+    </script>
+</body>
+
+</html>
