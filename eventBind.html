@@ -20,7 +20,8 @@
                 super(props);
                 this.state = {"listdata":[1,2,3,4,5,20,50]};
             }
-            onClick=(e,item)=>{
+            onClick=(item,e)=>{
+                console.log(Array.from(arguments));
                 console.log(item);
                 console.log(e);
             }
