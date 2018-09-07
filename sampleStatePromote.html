@@ -25,7 +25,7 @@
             render(){
                 console.log(this);
                 return (
-                    <input type="date" value={this.props.date} onChange={this.onChange}/>
+                    <input type="date" value={this.props.date} onChange={this.props.onChange}/>
                 )
             }
         }
@@ -35,8 +35,8 @@
                 this.state = {date:new Date()};
                 this.onChange = this.onChange.bind(this);
             }
-            onChange(value){
-                this.setState({date:value});
+            onChange(e){
+                this.setState({date:e.target.value});
             }
             render(){
                 return(
