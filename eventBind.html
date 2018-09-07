@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.bootcss.com/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.bootcss.com/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root">
+
+    </div>
+    <script type="text/babel">
+        class  MyList extends React.Component{
+            constructor(props){
+                super(props);
+                this.state = {"listdata":[1,2,3,4,5,20,50]};
+            }
+            render(){
+                console.log("render list");
+                return(
+                    <div>
+                        {this.props.listdata.map((item,index)=>{
+                            return <p key={index}>{item.toString()}</p>
+                        })}
+                    </div>
+                )
+            }
+        }
+
+        class MyButton extends React.Component{
+            constructor(props){
+                super(props);
+                this.state = {"listdata":[1,2,3,4,5,20,50],"addValue":""};
+            }
+            onClick = (e)=>{
+                console.log(e);
+                this.setState({"listdata":this.state.listdata.slice(0,this.state.listdata.length -1)})
+            }
+            onAdd = (e)=>{
+                var arr=this.state.listdata;
+                arr.push(this.state.addValue);
+                this.setState({"listdata":arr,"addValue":""});
+            }
+            onTextChange = (e)=>{
+                this.setState({"addValue":e.target.value});
+            }
+            render(){
+                return(
+                    <div>
+                        <MyList listdata={this.state.listdata}/>
+                        <input value={this.state.addValue} type="text" onChange={this.onTextChange}/>
+                        <button onClick={this.onClick}>删除</button>
+                        <button onClick ={this.onAdd}>添加</button>
+                    </div>
+                )
+            }
+        }
+
+        var listdata = [1,2,3,4,5,20,50];
+        ReactDOM.render(<MyButton/>,document.getElementById("root"));
+    </script>
+</body>
+
+</html>
