@@ -20,12 +20,16 @@
                 super(props);
                 this.state = {"listdata":[1,2,3,4,5,20,50]};
             }
+            onClick=(e,item)=>{
+                console.log(item);
+                console.log(e);
+            }
             render(){
                 console.log("render list");
                 return(
                     <div>
                         {this.props.listdata.map((item,index)=>{
-                            return <p key={index}>{item.toString()}</p>
+                            return <p key={index} onClick={this.onClick.bind(this,item)}>{item.toString()}</p>
                         })}
                     </div>
                 )
@@ -37,8 +41,9 @@
                 super(props);
                 this.state = {"listdata":[1,2,3,4,5,20,50],"addValue":""};
             }
-            onClick = (e)=>{
+            onClick = (e,name)=>{
                 console.log(e);
+                console.log(name);
                 this.setState({"listdata":this.state.listdata.slice(0,this.state.listdata.length -1)})
             }
             onAdd = (e)=>{
@@ -54,8 +59,8 @@
                     <div>
                         <MyList listdata={this.state.listdata}/>
                         <input value={this.state.addValue} type="text" onChange={this.onTextChange}/>
-                        <button onClick={this.onClick}>删除</button>
-                        <button onClick ={this.onAdd}>添加</button>
+                        <button onClick={this.onClick.bind(this,"timlv")}>删除</button>
+                        <button onClick ={this.onAdd.bind(this,"timlv")}>添加</button>
                     </div>
                 )
             }
